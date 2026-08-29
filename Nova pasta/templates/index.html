@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clone YouTube</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="left-group">
+        <button class="icon-btn" aria-label="Menu">☰</button>
+        <div class="logo-wrap">
+          <div class="youtube-logo">
+            <span class="play-triangle"></span>
+          </div>
+          <span class="brand">YouTube</span>
+          <span class="country-code">C</span>
+        </div>
+      </div>
+
+      <div class="search-wrap">
+        <div class="search-box">
+          <input type="text" placeholder="Pesquisar" />
+          <button class="search-btn">⌕</button>
+        </div>
+        <button class="icon-btn mic-btn" aria-label="Pesquisa por voz">🎙</button>
+      </div>
+
+      <div class="right-group">
+        <button class="create-btn">＋ Criar</button>
+        <button class="icon-btn" aria-label="Notificações">🔔</button>
+        <div class="profile-pill">V</div>
+      </div>
+    </header>
+
+    <main class="page-layout">
+      <aside class="sidebar">
+        <nav>
+          <ul>
+            <li class="active"><span>🏠</span> Início</li>
+            <li><span>▶</span> Shorts</li>
+            <li><span>📺</span> Inscrições</li>
+            <li class="separator"></li>
+            <li><span>📚</span> Biblioteca</li>
+            <li><span>🕘</span> Histórico</li>
+            <li><span>🎬</span> Seus vídeos</li>
+            <li><span>⏱</span> Assistir mais tarde</li>
+            <li><span>👍</span> Gostei</li>
+          </ul>
+        </nav>
+      </aside>
+
+      <section class="content">
+        <div class="chip-row">
+          <button class="chip active">Tudo</button>
+          <button class="chip">Programação</button>
+          <button class="chip">Design</button>
+          <button class="chip">IA</button>
+          <button class="chip">Trabalho</button>
+          <button class="chip">Podcasts</button>
+          <button class="chip">Música</button>
+          <button class="chip">Tecnologia</button>
+        </div>
+
+        <div class="video-grid">
+          {% for video in videos %}
+          <article class="video-card">
+            <a href="{{ url_for('video_detail', video_id=video.id) }}" class="thumb-link">
+              <div class="thumbnail" style="background-image: url('{{ video.thumbnail }}');">
+                <span class="duration">{{ video.duration }}</span>
+              </div>
+            </a>
+            <div class="video-info">
+              <img class="channel-avatar" src="{{ video.avatar }}" alt="{{ video.channel }}" />
+              <div class="video-meta">
+                <h3>{{ video.title }}</h3>
+                <p class="channel-name">{{ video.channel }}</p>
+                <p class="stats">{{ video.views }} · {{ video.time }}</p>
+              </div>
+            </div>
+          </article>
+          {% endfor %}
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
